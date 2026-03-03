@@ -1,11 +1,11 @@
 import { Link } from '@tanstack/react-router'
-import { 
-  LayoutDashboard, 
-  Layers, 
-  Briefcase, 
-  Users, 
+import {
+  LayoutDashboard,
+  Layers,
+  Briefcase,
+  Users,
   LogOut,
-  ChevronRight
+  ChevronRight,
 } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
 
@@ -20,13 +20,15 @@ const Sidebar = () => {
   ]
 
   // Nếu chưa có user (chưa login xong) thì không hiện Sidebar
-  if (!user) return null;
+  if (!user) return null
 
   return (
     <aside className="w-64 h-screen bg-white border-r border-gray-200 flex flex-col sticky top-0">
       {/* Logo */}
       <div className="p-6 border-b border-gray-50 flex items-center gap-3">
-        <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center font-bold text-white">L</div>
+        <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center font-bold text-white">
+          L
+        </div>
         <span className="text-xl font-bold text-gray-800">LocalHelp</span>
       </div>
 
@@ -43,7 +45,10 @@ const Sidebar = () => {
               {typeof item.icon !== 'string' && <item.icon size={20} />}
               <span className="font-medium">{item.label}</span>
             </div>
-            <ChevronRight size={16} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+            <ChevronRight
+              size={16}
+              className="opacity-0 group-hover:opacity-100 transition-opacity"
+            />
           </Link>
         ))}
       </nav>
@@ -51,8 +56,11 @@ const Sidebar = () => {
       {/* User Info & Logout Button */}
       <div className="p-4 border-t border-gray-100 mt-auto">
         <div className="flex items-center gap-3 mb-4 px-2">
-          <img 
-            src={user.avatarUrl || `https://ui-avatars.com/api/?name=${user.fullName}`} 
+          <img
+            src={
+              user.avatarUrl ||
+              `https://ui-avatars.com/api/?name=${user.fullName}`
+            }
             className="w-10 h-10 rounded-full border border-orange-100"
             alt="Admin"
           />
@@ -62,10 +70,10 @@ const Sidebar = () => {
           </div>
         </div>
 
-        <button 
+        <button
           onClick={() => {
-            if(window.confirm("Bạn có chắc chắn muốn đăng xuất?")) {
-              logout(); // Gọi hàm xóa token và redirect
+            if (window.confirm('Bạn có chắc chắn muốn đăng xuất?')) {
+              logout() // Gọi hàm xóa token và redirect
             }
           }}
           className="w-full flex items-center gap-3 p-3 text-red-500 hover:bg-red-50 rounded-xl transition-colors font-medium"

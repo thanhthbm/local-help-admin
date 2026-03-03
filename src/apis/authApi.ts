@@ -3,8 +3,7 @@ import axiosClient from '#/utils/axiosClient'
 import axios from 'axios'
 
 export const authApi = {
-  login: (credentials: any): Promise<LoginResponse> =>
-    axiosClient.post('/auth/login', credentials),
+  login: (): Promise<UserResponse> => axiosClient.post('api/auth/login'),
 
-  getMe: (): Promise<UserResponse> => axiosClient.get('/auth/me'),
+  getMe: (): Promise<UserResponse> => axiosClient.get('api/users/me'),
 }
