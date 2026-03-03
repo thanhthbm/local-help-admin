@@ -5,6 +5,7 @@ import { auth } from '#/config/firebaseConfig'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import type { LoginForm } from '#/validations/authSchema'
 import { Navigate, useNavigate } from '@tanstack/react-router'
+import { toast } from 'react-toastify'
 
 export const useAuth = () => {
   const queryClient = useQueryClient()
@@ -35,24 +36,30 @@ export const useAuth = () => {
       try {
         // Bước 3: Gọi Backend Sync
         const userResponse = await authApi.login()
+
+        console.log('User info from backend:', userResponse)
+        if (userResponse.role !== 'ADMIN') {
+          throw new Error('Không có quyền truy cập')
+        }
+
         return userResponse
       } catch (error) {
-        // Nếu Backend lỗi, xóa token ngay để tránh "lách" qua được route guard
         localStorage.removeItem('token')
         throw error
       }
     },
 
     onSuccess: (userResponse) => {
-      console.log('Sync with backend success:', userResponse)
       queryClient.setQueryData(['auth-user'], userResponse)
       navigate({ to: '/' })
     },
 
     onError: (error) => {
-      console.error('Login/Sync failed:', error)
       localStorage.removeItem('token')
-      alert('Đăng nhập thất bại: Không thể đồng bộ với hệ thống backend.')
+      toast.error(
+        'Error: ' +
+          (error instanceof Error ? error.message : 'Đăng nhập thất bại'),
+      )
     },
   })
 

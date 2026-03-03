@@ -23,6 +23,7 @@
     "@tanstack/react-router-devtools": "^1.132.0",
     "@tanstack/router-plugin": "^1.132.0",
     "axios": "^1.13.6",
+    "cloudinary-build-url": "^0.2.4",
     "firebase": "^12.10.0",
     "lucide-react": "^0.545.0",
     "react": "^19.2.0",
