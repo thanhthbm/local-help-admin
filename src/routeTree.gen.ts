@@ -9,14 +9,26 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UsersRouteImport } from './routes/users'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as JobsRouteImport } from './routes/jobs'
 import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CategoriesCreateRouteImport } from './routes/categories.create'
 
+const UsersRoute = UsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JobsRoute = JobsRouteImport.update({
+  id: '/jobs',
+  path: '/jobs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CategoriesRoute = CategoriesRouteImport.update({
@@ -38,43 +50,78 @@ const CategoriesCreateRoute = CategoriesCreateRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/categories': typeof CategoriesRouteWithChildren
+  '/jobs': typeof JobsRoute
   '/login': typeof LoginRoute
+  '/users': typeof UsersRoute
   '/categories/create': typeof CategoriesCreateRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/categories': typeof CategoriesRouteWithChildren
+  '/jobs': typeof JobsRoute
   '/login': typeof LoginRoute
+  '/users': typeof UsersRoute
   '/categories/create': typeof CategoriesCreateRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/categories': typeof CategoriesRouteWithChildren
+  '/jobs': typeof JobsRoute
   '/login': typeof LoginRoute
+  '/users': typeof UsersRoute
   '/categories/create': typeof CategoriesCreateRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/categories' | '/login' | '/categories/create'
+  fullPaths:
+    | '/'
+    | '/categories'
+    | '/jobs'
+    | '/login'
+    | '/users'
+    | '/categories/create'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/categories' | '/login' | '/categories/create'
-  id: '__root__' | '/' | '/categories' | '/login' | '/categories/create'
+  to: '/' | '/categories' | '/jobs' | '/login' | '/users' | '/categories/create'
+  id:
+    | '__root__'
+    | '/'
+    | '/categories'
+    | '/jobs'
+    | '/login'
+    | '/users'
+    | '/categories/create'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CategoriesRoute: typeof CategoriesRouteWithChildren
+  JobsRoute: typeof JobsRoute
   LoginRoute: typeof LoginRoute
+  UsersRoute: typeof UsersRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/users': {
+      id: '/users'
+      path: '/users'
+      fullPath: '/users'
+      preLoaderRoute: typeof UsersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jobs': {
+      id: '/jobs'
+      path: '/jobs'
+      fullPath: '/jobs'
+      preLoaderRoute: typeof JobsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/categories': {
@@ -116,7 +163,9 @@ const CategoriesRouteWithChildren = CategoriesRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CategoriesRoute: CategoriesRouteWithChildren,
+  JobsRoute: JobsRoute,
   LoginRoute: LoginRoute,
+  UsersRoute: UsersRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
