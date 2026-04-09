@@ -132,11 +132,10 @@ function UsersPage() {
                     <button
                       onClick={() => handleToggleLock(user)}
                       disabled={updateStatusMutation.isPending}
-                      className={`px-3 py-2 rounded-lg text-sm font-medium ${
-                        user.status === 'LOCKED'
-                          ? 'text-green-700 bg-green-50 hover:bg-green-100'
-                          : 'text-red-700 bg-red-50 hover:bg-red-100'
-                      } disabled:opacity-50`}
+                      className={`px-3 py-2 rounded-lg text-sm font-medium ${user.status === 'LOCKED'
+                        ? 'text-green-700 bg-green-50 hover:bg-green-100'
+                        : 'text-red-700 bg-red-50 hover:bg-red-100'
+                        } disabled:opacity-50`}
                     >
                       {user.status === 'LOCKED' ? 'Mo khoa' : 'Khoa'}
                     </button>
@@ -163,11 +162,10 @@ function UsersPage() {
                   key={item}
                   onClick={() => setCurrentPage(item)}
                   disabled={isLoading}
-                  className={`min-w-9 px-3 py-2 rounded-lg border text-sm transition-colors ${
-                    item === currentPage
-                      ? 'border-orange-500 bg-orange-500 text-white'
-                      : 'border-gray-200 text-gray-700 hover:bg-gray-50'
-                  } disabled:opacity-50`}
+                  className={`min-w-9 px-3 py-2 rounded-lg border text-sm transition-colors ${item === currentPage
+                    ? 'border-orange-500 bg-orange-500 text-white'
+                    : 'border-gray-200 text-gray-700 hover:bg-gray-50'
+                    } disabled:opacity-50`}
                 >
                   {item}
                 </button>
