@@ -80,9 +80,9 @@ function UsersPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-800">Quan ly nguoi dung</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Quản lý người dùng</h1>
         <span className="text-sm text-gray-500">
-          Tong nguoi dung: {(meta?.total ?? users.length).toLocaleString('vi-VN')}
+          Tổng người dùng: {(meta?.total ?? users.length).toLocaleString('vi-VN')}
         </span>
       </div>
 
@@ -91,12 +91,12 @@ function UsersPage() {
           <thead className="bg-gray-50 border-b border-gray-100 text-xs font-bold uppercase text-gray-400">
             <tr>
               <th className="px-6 py-4">ID</th>
-              <th className="px-6 py-4">Ho ten</th>
+              <th className="px-6 py-4">Họ tên</th>
               <th className="px-6 py-4">Email</th>
-              <th className="px-6 py-4">Vai tro</th>
-              <th className="px-6 py-4">Trang thai</th>
-              <th className="px-6 py-4">Ngay tao</th>
-              <th className="px-6 py-4 text-right">Thao tac</th>
+              <th className="px-6 py-4">Vai trò</th>
+              <th className="px-6 py-4">Trạng thái</th>
+              <th className="px-6 py-4">Ngày tạo</th>
+              <th className="px-6 py-4 text-right">Thao tác</th>
             </tr>
           </thead>
 
@@ -104,19 +104,19 @@ function UsersPage() {
             {isLoading ? (
               <tr>
                 <td colSpan={7} className="px-6 py-6 text-center text-sm text-gray-500">
-                  Dang tai danh sach nguoi dung...
+                  Đang tải danh sách người dùng...
                 </td>
               </tr>
             ) : isError ? (
               <tr>
                 <td colSpan={7} className="px-6 py-6 text-center text-sm text-red-600">
-                  Khong tai duoc danh sach nguoi dung.
+                  Không tải được danh sách người dùng.
                 </td>
               </tr>
             ) : users.length === 0 ? (
               <tr>
                 <td colSpan={7} className="px-6 py-6 text-center text-sm text-gray-500">
-                  Chua co nguoi dung nao.
+                  Chưa có người dùng nào.
                 </td>
               </tr>
             ) : (
@@ -137,7 +137,7 @@ function UsersPage() {
                         : 'text-red-700 bg-red-50 hover:bg-red-100'
                         } disabled:opacity-50`}
                     >
-                      {user.status === 'LOCKED' ? 'Mo khoa' : 'Khoa'}
+                      {user.status === 'LOCKED' ? 'Mở khóa' : 'Khóa'}
                     </button>
                   </td>
                 </tr>
@@ -152,7 +152,7 @@ function UsersPage() {
             disabled={currentPage <= 1 || isLoading}
             className="px-4 py-2 rounded-lg border border-gray-200 text-sm disabled:opacity-50"
           >
-            Trang truoc
+            Trang trước
           </button>
 
           <div className="flex items-center gap-2 flex-wrap justify-center">
