@@ -11,6 +11,11 @@ export const useAuth = () => {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
 
+  /**
+   * Query user hiện tại khi localStorage còn token.
+   *
+   * Nếu token không hợp lệ, axiosClient sẽ xóa token và chuyển về /login.
+   */
   const { data: user, isLoading } = useQuery({
     queryKey: ['auth-user'],
     queryFn: authApi.getMe,
@@ -19,6 +24,11 @@ export const useAuth = () => {
     staleTime: 1000 * 60 * 5,
   })
 
+  /**
+   * Đăng nhập admin.
+   *
+   * Luồng gồm: Firebase signIn -> lấy ID token -> gọi backend sync -> kiểm tra role ADMIN.
+   */
   const loginMutation = useMutation({
     mutationFn: async (data: LoginForm) => {
       // Bước 1: Login Firebase
@@ -63,6 +73,9 @@ export const useAuth = () => {
     },
   })
 
+  /**
+   * Đăng xuất khỏi admin bằng cách xóa token local và cache auth-user.
+   */
   const logout = () => {
     localStorage.removeItem('token')
     queryClient.setQueryData(['auth-user'], null)

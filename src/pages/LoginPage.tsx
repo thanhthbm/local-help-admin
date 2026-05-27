@@ -15,6 +15,12 @@ export default function LoginPage() {
     resolver: yupResolver(loginSchema),
   });
 
+  /**
+   * Submit form đăng nhập admin.
+   *
+   * Validation do yup/react-hook-form xử lý; useAuth chịu trách nhiệm Firebase login
+   * và kiểm tra role ADMIN từ backend.
+   */
   const onSubmit = (data: LoginForm) => {
     login(data); // Gọi mutation từ useAuth
   };

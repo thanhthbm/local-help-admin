@@ -5,12 +5,18 @@ import { toast } from 'react-toastify'
 export const useCategory = () => {
   const queryClient = useQueryClient()
 
+  /**
+   * Query danh sách danh mục.
+   *
+   * staleTime 5 phút giúp hạn chế gọi lại API khi admin chuyển trang nhanh.
+   */
   const categoryQuery = useQuery({
     queryKey: ['categories'],
     queryFn: () => CategoriesApi.getAllCategories(),
     staleTime: 1000 * 60 * 5,
   })
 
+  /** Mutation tạo danh mục và refresh lại danh sách sau khi thành công. */
   const createCategoryMutation = useMutation({
     mutationFn: (newCategory: CategoryRequest) =>
       CategoriesApi.createCategory(newCategory),
@@ -24,6 +30,7 @@ export const useCategory = () => {
     },
   })
 
+  /** Mutation xóa danh mục và refresh lại danh sách sau khi thành công. */
   const deleteCategoryMutation = useMutation({
     mutationFn: (id: number) => CategoriesApi.deleteCategory(id),
     onSuccess: () => {
@@ -35,6 +42,7 @@ export const useCategory = () => {
     },
   })
 
+  /** Mutation cập nhật danh mục và refresh lại danh sách sau khi thành công. */
   const updateCategoryMutation = useMutation({
     mutationFn: ({ id, data }: { id: number; data: CategoryRequest }) =>
       CategoriesApi.updateCategory(id, data),

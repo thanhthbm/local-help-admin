@@ -8,6 +8,7 @@ const axiosClient = axios.create({
 })
 
 axiosClient.interceptors.request.use((config) => {
+  // Gắn Firebase token đã lưu vào mọi request backend cần xác thực admin.
   const token = localStorage.getItem('token')
   if (token) {
     config.headers['Authorization'] = `Bearer ${token}`
@@ -19,6 +20,7 @@ axiosClient.interceptors.request.use((config) => {
 axiosClient.interceptors.response.use(
   (response) => response.data,
   (error) => {
+    // Nếu token hết hạn hoặc không hợp lệ, xóa session local và điều hướng về login.
     const status = error.response?.status
     if (status === 401) {
       console.warn('Unauthorized, logging out...')

@@ -13,6 +13,12 @@ function CreateCategoryPage() {
   const { createCategory, isCreating } = useCategory()
   const [file, setFile] = useState<File | null>(null)
 
+  /**
+   * Submit form tạo danh mục.
+   *
+   * Nếu admin chọn file icon, file được upload lên Cloudinary trước để lấy iconUrl,
+   * sau đó request tạo danh mục mới được gửi về backend.
+   */
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)

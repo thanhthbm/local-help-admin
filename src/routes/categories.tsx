@@ -14,8 +14,12 @@ function CategoriesPage() {
   const location = useLocation()
   const { categories, isLoading, deleteCategory } = useCategory()
 
+  // Route /categories hiển thị danh sách; route con /categories/create hiển thị Outlet.
   const isRootCategories = location.pathname === '/categories'
 
+  /**
+   * Xác nhận trước khi gọi API xóa danh mục.
+   */
   const handleDelete = (id: number) => {
     if (window.confirm('Bạn có chắc chắn muốn xóa danh mục này?')) {
       deleteCategory(id)

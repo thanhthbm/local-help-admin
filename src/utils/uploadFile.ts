@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 export const uploadToCloudinary = async (file: File): Promise<string> => {
+  // API ngoài: upload icon danh mục trực tiếp lên Cloudinary bằng unsigned upload preset.
   const formData = new FormData()
   formData.append('file', file)
   formData.append('upload_preset', import.meta.env.VITE_UPLOAD_PRESET)
